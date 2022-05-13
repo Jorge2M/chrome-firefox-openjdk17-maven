@@ -28,7 +28,7 @@ ENV JDK_DOWNLOAD http://storage.exoplatform.org/public/java/jdk/openjdk/${JDK_VE
 ENV JVM_DIR /usr/lib/jvm
 RUN mkdir -p "${JVM_DIR}"
 
-RUN wget -q --no-cookies --no-check-certificate \
+RUN wget -q --no-cookies --no-check-certificate \ 
   -O "${DOWNLOAD_DIR}/openjdk-${JDK_VERSION}-linux-x64.tar.gz" "${JDK_DOWNLOAD}" \
   && cd "${JVM_DIR}" \
   && tar --no-same-owner -xzf "${DOWNLOAD_DIR}/openjdk-${JDK_VERSION}-linux-x64.tar.gz" \
