@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
 
 RUN apt-get update -y \
 	&& apt -y install locales \
@@ -13,30 +13,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
-#=============
-# OpenJdk 17
-#=============
-
-ENV JDK_VERSION 17.0.1
-ENV JDK_MAJOR_VERSION 17
-
-ENV DOWNLOAD_DIR /download_jdk
-RUN mkdir -p "${DOWNLOAD_DIR}"
-ENV JDK_DOWNLOAD http://storage.exoplatform.org/public/java/jdk/openjdk/${JDK_VERSION}/openjdk-${JDK_VERSION}_linux-x64_bin.tar.gz 
-
-ENV JVM_DIR /usr/lib/jvm
-RUN mkdir -p "${JVM_DIR}"
-
-RUN wget -q --no-cookies --no-check-certificate \   
-  -O "${DOWNLOAD_DIR}/openjdk-${JDK_VERSION}-linux-x64.tar.gz" "${JDK_DOWNLOAD}" \
-  && cd "${JVM_DIR}" \
-  && tar --no-same-owner -xzf "${DOWNLOAD_DIR}/openjdk-${JDK_VERSION}-linux-x64.tar.gz" \
-  && rm -f "${DOWNLOAD_DIR}/openjdk-${JDK_VERSION}-linux-x64.tar.gz" \
-  && mv "${JVM_DIR}/jdk-${JDK_VERSION}" "${JVM_DIR}/java-${JDK_VERSION}-openjdk-x64" \
-  && ln -s "${JVM_DIR}/java-${JDK_VERSION}-openjdk-x64" "${JVM_DIR}/java-${JDK_MAJOR_VERSION}-openjdk-x64"
-
-ENV JAVA_HOME ${JVM_DIR}/java-${JDK_MAJOR_VERSION}-openjdk-x64
 
 #============
 # Maven
@@ -53,7 +29,7 @@ RUN apt-get update -y \
 # Chrome
 #=======
 #List of versions in https://www.ubuntuupdates.org/ppa/google_chrome
-ARG CHROME_VERSION=101.0.4951.64-1
+ARG CHROME_VERSION=105.0.5195.125-1
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
 	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
 	&& apt-get update -qqy \
