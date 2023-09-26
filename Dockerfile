@@ -29,27 +29,30 @@ RUN apt-get update -y \
 # Chrome
 #=======
 #List of versions in https://www.ubuntuupdates.org/ppa/google_chrome
-#ARG CHROME_VERSION=117.0.5938.92-1
-#RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-#	&& apt-get update -qqy \
-#	&& apt-get -qqy install google-chrome-stable=$CHROME_VERSION \
-#	&& rm /etc/apt/sources.list.d/google-chrome.list \
-#	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
-#	&& sed -i 's/"$HERE\/chrome"/"$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome
+ARG CHROME_VERSION=117.0.5938.92-1
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+	&& apt-get update -qqy \
+	&& apt-get -qqy install google-chrome-stable=$CHROME_VERSION \
+	&& rm /etc/apt/sources.list.d/google-chrome.list \
+	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+	&& sed -i 's/"$HERE\/chrome"/"$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome
 
 #Install Google Chrome Stable
 #List of versions in https://www.ubuntuupdates.org/ppa/google_chrome
-ARG CHROME_VERSION=117.0.5938.92-1
-RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-  apt-get install -y wget gnupg && \
-  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb stable main' >> /etc/apt/sources.list.d/google-chrome.list && \
-  apt-get update && \
-  apt-get install -y  --no-install-recommends google-chrome-stable=$CHROME_VERSION && \
-  rm -fr /var/lib/apt/lists/* && \
-  apt-get purge --auto-remove -y curl && \
-  rm -fr /src/*.deb 
-
+#RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+#  apt-get install -y wget gnupg && \
+#  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb stable main' >> /etc/apt/sources.list.d/google-chrome.list && \
+#  apt-get update && \
+#  apt-get install -y  --no-install-recommends \
+#  google-chrome-stable \
+#  fonts-ipafont-gothic \
+#  fonts-wqy-zenhei \
+#  fonts-thai-tlwg \
+#  fonts-kacst ttf-freefont && \
+#  rm -fr /var/lib/apt/lists/* && \
+#  apt-get purge --auto-remove -y curl && \
+#  rm -fr /src/*.deb
 
 #========= 
 # Firefox
