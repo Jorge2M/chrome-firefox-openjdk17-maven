@@ -29,7 +29,7 @@ RUN apt-get update -y \
 # Chrome
 #=======
 #List of versions in https://www.ubuntuupdates.org/ppa/google_chrome
-ARG CHROME_VERSION=120.0.6099.109-1
+ARG CHROME_VERSION=125.0.6422.141-1
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
 	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
 	&& apt-get update -qqy \
