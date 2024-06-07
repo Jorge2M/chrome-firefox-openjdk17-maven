@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu
+FROM mcr.microsoft.com/openjdk/jdk:21-ubuntu
 
 RUN apt-get update -y \
 	&& apt -y install locales \
